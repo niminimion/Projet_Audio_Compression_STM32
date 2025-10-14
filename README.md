@@ -6,18 +6,18 @@
 SAE3 is an STM32CubeMX/STM32CubeIDE project targeting the STM32L432KC microcontroller (commonly used on the NUCLEO‑L432KC board). The repository contains the auto‑generated HAL setup and user code regions where application logic can be implemented.
 
 #### SAÉ S3.1 – Real‑Time Audio Compression Effect
-This project can run a real‑time dynamic range compression effect on the STM32 NUCLEO‑L432KC. It continuously analyzes the most recent input audio window of duration \(\Delta t = 1\,\text{s}\) to estimate the peak amplitude \(V_{amp}\). The applied gain \(A\) follows a piecewise law:
+This project can run a real‑time dynamic range compression effect on the STM32 NUCLEO‑L432KC. It continuously analyzes the most recent input audio window of duration $\Delta t = 1\,\text{s}$ to estimate the peak amplitude $V_{amp}$. The applied gain $A$ follows a piecewise law:
 
-\[\displaystyle
+```math
 A(V_{amp}) =
 \begin{cases}
 1, & \text{if } V_{amp} < V_{th} \\
 a\,V_{amp} + b + \dfrac{c}{V_{amp}}, & \text{if } V_{th} \le V_{amp} < V_{max} \\
 \dfrac{2V_{th}+\Delta V}{2V_{amp}}, & \text{if } V_{max} \le V_{amp}
 \end{cases}
-\]
+```
 
-where \(V_{max} = V_{th} + \Delta V\). For the demonstration settings specified in the brief: \(V_{th} = 1\,\text{V}\) and \(\Delta V = 2\,\text{V}\). Constants \(a\), \(b\), and \(c\) are chosen so that the gain is continuous at the region boundaries.
+where $V_{max} = V_{th} + \Delta V$. For the demonstration settings specified in the brief: $V_{th} = 1\,\text{V}$ and $\Delta V = 2\,\text{V}$. Constants $a$, $b$, and $c$ are chosen so that the gain is continuous at the region boundaries.
 
 Key points:
 - The compressor reduces gain only when the recent amplitude exceeds the threshold; quieter passages remain unchanged.
@@ -26,12 +26,12 @@ Key points:
 Technical notes:
 - Hardware: NUCLEO‑L432KC (STM32L432KC)
 - Sample rate: 32 kHz
-- User controls: The specification anticipates making \(V_{th}\) and \(\Delta V\) adjustable (e.g., potentiometer or buttons) and displaying their values; the demo uses fixed values.
+- User controls: The specification anticipates making $V_{th}$ and $\Delta V$ adjustable (e.g., potentiometer or buttons) and displaying their values; the demo uses fixed values.
 
 How to use (adapt to your environment):
 - Open the project in STM32CubeIDE, build, and flash the board.
 - Feed the processing board with the acquisition board output and route its output to the restitution board.
-- Implement or adjust the compression routine inside USER CODE regions under `Core/Src` (e.g., the audio processing callback), and, if desired, map inputs to \(V_{th}\) and \(\Delta V\).
+- Implement or adjust the compression routine inside USER CODE regions under `Core/Src` (e.g., the audio processing callback), and, if desired, map inputs to $V_{th}$ and $\Delta V$.
 
 #### Key Components
 - `SAE3.ioc`: STM32CubeMX configuration file (pins, clocks, middleware). Regenerate code from this file when configuration changes.
@@ -78,32 +78,32 @@ How to use (adapt to your environment):
 SAE3 est un projet STM32CubeMX/STM32CubeIDE pour le microcontrôleur STM32L432KC (souvent utilisé avec la carte NUCLEO‑L432KC). Le dépôt contient la configuration HAL auto‑générée et des zones de code utilisateur pour implémenter la logique applicative.
 
 #### SAÉ S3 – Effet de Compression Audio en Temps Réel
-Ce projet peut exécuter un effet de compression de la plage dynamique en temps réel sur la carte STM32 NUCLEO‑L432KC. Le système analyse en continu la fenêtre la plus récente du signal d’entrée de durée \(\Delta t = 1\,\text{s}\) pour estimer l’amplitude de crête \(V_{amp}\). Le gain appliqué \(A\) suit la loi par morceaux suivante :
+Ce projet peut exécuter un effet de compression de la plage dynamique en temps réel sur la carte STM32 NUCLEO‑L432KC. Le système analyse en continu la fenêtre la plus récente du signal d'entrée de durée $\Delta t = 1\,\text{s}$ pour estimer l'amplitude de crête $V_{amp}$. Le gain appliqué $A$ suit la loi par morceaux suivante :
 
-\[\displaystyle
+```math
 A(V_{amp}) =
 \begin{cases}
 1, & \text{si } V_{amp} < V_{th} \\
 a\,V_{amp} + b + \dfrac{c}{V_{amp}}, & \text{si } V_{th} \le V_{amp} < V_{max} \\
 \dfrac{2V_{th}+\Delta V}{2V_{amp}}, & \text{si } V_{max} \le V_{amp}
 \end{cases}
-\]
+```
 
-où \(V_{max} = V_{th} + \Delta V\). Pour la démonstration : \(V_{th} = 1\,\text{V}\) et \(\Delta V = 2\,\text{V}\). Les constantes \(a\), \(b\) et \(c\) sont choisies afin d’assurer la continuité du gain aux frontières.
+où $V_{max} = V_{th} + \Delta V$. Pour la démonstration : $V_{th} = 1\,\text{V}$ et $\Delta V = 2\,\text{V}$. Les constantes $a$, $b$ et $c$ sont choisies afin d'assurer la continuité du gain aux frontières.
 
-Points clés :
-- Le compresseur réduit le gain uniquement lorsque l’amplitude récente dépasse le seuil ; les passages faibles restent inchangés.
-- Contrairement à la distorsion, la forme d’onde est préservée tandis que l’amplitude est contrôlée.
+Points clés :
+- Le compresseur réduit le gain uniquement lorsque l'amplitude récente dépasse le seuil ; les passages faibles restent inchangés.
+- Contrairement à la distorsion, la forme d'onde est préservée tandis que l'amplitude est contrôlée.
 
-Notes techniques :
-- Matériel : NUCLEO‑L432KC (STM32L432KC)
-- Fréquence d’échantillonnage : 32 kHz
-- Contrôles utilisateurs : Le cahier des charges prévoit que \(V_{th}\) et \(\Delta V\) puissent être variables (potentiomètre ou boutons) avec affichage ; la démo utilise des valeurs fixes.
+Notes techniques :
+- Matériel : NUCLEO‑L432KC (STM32L432KC)
+- Fréquence d'échantillonnage : 32 kHz
+- Contrôles utilisateurs : Le cahier des charges prévoit que $V_{th}$ et $\Delta V$ puissent être variables (potentiomètre ou boutons) avec affichage ; la démo utilise des valeurs fixes.
 
-Utilisation (à adapter à votre environnement) :
+Utilisation (à adapter à votre environnement) :
 - Ouvrir le projet dans STM32CubeIDE, compiler et flasher la carte.
-- Relier la carte de traitement à la carte d’acquisition (entrée) et à la carte de restitution (sortie).
-- Implémenter/ajuster la routine de compression dans les zones USER CODE de `Core/Src` (ex. rappel de traitement audio) et, si besoin, lier des entrées à \(V_{th}\) et \(\Delta V\).
+- Relier la carte de traitement à la carte d'acquisition (entrée) et à la carte de restitution (sortie).
+- Implémenter/ajuster la routine de compression dans les zones USER CODE de `Core/Src` (ex. rappel de traitement audio) et, si besoin, lier des entrées à $V_{th}$ et $\Delta V$.
 
 #### Composants clés
 - `SAE3.ioc` : fichier de configuration STM32CubeMX (broches, horloges, middlewares). Régénérez le code après toute modification.
